@@ -9,6 +9,8 @@ import { StatusBar } from '@ionic-native/status-bar/ngx';
 import { AppComponent } from './app.component';
 import { AppRoutingModule } from './app-routing.module';
 import { HttpClientModule } from '@angular/common/http';
+import { DirectivaColorDirective } from './directivas/directiva-color.directive';
+//import { PipeFechaPipe } from './pipes/pipe-fecha.pipe';
 
 @NgModule({
   declarations: [AppComponent],

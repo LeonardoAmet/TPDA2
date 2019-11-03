@@ -11,6 +11,7 @@ import { ElectrovalvulaService } from '../services/electrovalvula.service';
 })
 export class LogRiegosPage implements OnInit {
 
+  color = 'yellow'
   //@Input() sensor: Sensor;
   private sensorId;
   private logs:LogRiego[];

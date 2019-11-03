@@ -27,14 +27,14 @@
       </ion-col>      
     </ion-row>
 
-    <ion-row *ngFor="let medicion of mediciones">
+    <ion-row *ngFor="let medicion of mediciones"  appDirectivaColor [valorMedicion]="medicion.valor">
         <ion-col>
             <div>
-              {{medicion?.fecha}}
+              {{medicion?.fecha | pipeFecha}}
             </div>
           </ion-col>
           <ion-col>
-            <div>
+            <div >
               {{medicion?.valor}}
             </div>
           </ion-col> 

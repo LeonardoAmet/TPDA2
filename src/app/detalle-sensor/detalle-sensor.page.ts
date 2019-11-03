@@ -20,44 +20,17 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 })
 export class DetalleSensorPage implements OnInit {
 
-  private idSensor:string
+  private idSensor: string
   private valorObtenido: number = 0;
-  public  myChart;
+  public myChart;
   private chartOptions;
   private sensor: Sensor = new Sensor();
   private medicion: Medicion = new Medicion();
   private log: LogRiego = new LogRiego();
-  private aperturaEv: Number = 0;
+  private aperturaEv: Number;
 
   constructor(private router: ActivatedRoute, private sensorService: SensorService, private medicionService: MedicionService, private electrovalvulaService: ElectrovalvulaService) {
-    // 1. Traigo sensor
-    this.idSensor = this.router.snapshot.paramMap.get('id');
-    this.sensorService.getSensor(this.idSensor).then((resultado: Sensor) => {
-      console.log(resultado)
-      this.sensor = resultado
-    });
 
-    // 2. Traigo ultima medicion
-    this.medicionService.getUltimaMedicion(this.idSensor).then((resultado: Medicion) => {
-      console.log(resultado)
-      this.medicion = resultado
-      this.valorObtenido = parseInt(this.medicion.valor)
-    })
-
-    // 3. Traigo estado de la electrovalvula (en el log)
-    //let idElectrovalvula = this.router.snapshot.paramMap.get('id');
-    let idElectrovalvula = this.idSensor;
-    this.electrovalvulaService.getLogRiego(idElectrovalvula).then((resultado: LogRiego) => {
-      this.log = resultado;
-      this.aperturaEv = this.log.apertura;
-      console.log(this.aperturaEv)
-    })
-    // setTimeout(() => {
-
-    // }, 2000);
-    
-    
-    
   }
 
   ngOnInit() {
@@ -96,14 +69,10 @@ export class DetalleSensorPage implements OnInit {
 
   ionViewDidEnter() {
     // actualizo chart
-    
-    //
-    // setTimeout(() => {
-      var intervalId = setInterval(() => {
-        this.update()
-      }, 2000);
-      this.generarChart();
-    // }, 1000);
+    var intervalId = setInterval(() => {
+      this.update()
+    }, 2000);
+    this.generarChart();
   }
 
   generarChart() {
@@ -200,7 +169,7 @@ export class DetalleSensorPage implements OnInit {
     console.log("Cambio el valor del sensor");
     console.log("Apertura Ev ", this.aperturaEv);
     if (this.aperturaEv === 1) {
-      this.valorObtenido -= 2;
+      this.valorObtenido -= 3;
       // Si se llega a 100 saturo el valor:
       if (this.valorObtenido <= 0) {
         //clearInterval(intervalId)
@@ -208,7 +177,7 @@ export class DetalleSensorPage implements OnInit {
       }
     }
     else {
-      this.valorObtenido += 2;
+      this.valorObtenido += 1;
       // Si se llega a 100 saturo el valor:
       if (this.valorObtenido >= 100) {
         //clearInterval(intervalId)
@@ -228,5 +197,5 @@ export class DetalleSensorPage implements OnInit {
     });
   }
 
-  
+
 }

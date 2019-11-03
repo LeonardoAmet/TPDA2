@@ -22,10 +22,10 @@
       </ion-col>
     </ion-row>
 
-    <ion-row *ngFor="let log of logs">
+    <ion-row *ngFor="let log of logs"  >
       <ion-col>
-        <div>
-          {{log?.fecha}}
+        <div >
+          {{log?.fecha| pipeFecha}}
         </div>
       </ion-col>
       <ion-col>
