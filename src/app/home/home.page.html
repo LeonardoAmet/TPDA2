@@ -1,14 +1,19 @@
 <ion-header>
   <ion-toolbar>
     <ion-title>
-      Ionic Blank
+      Listado sensores
     </ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
-  <div class="ion-padding">
-    The world is your oyster.
-    <p>If you get lost, the <a target="_blank" rel="noopener" href="https://ionicframework.com/docs/">docs</a> will be your guide.</p>
-  </div>
-</ion-content>
+  <ion-list *ngFor="let sensor of listado" detail>
+    <ion-item [routerLink]="'/detalle-sensor/' + sensor.dispositivoId">
+      <ion-icon name="thermometer"></ion-icon>
+      <ion-label>
+        <h2>{{sensor.nombre}} </h2>
+        <p><ion-icon name="pin"></ion-icon>{{sensor.ubicacion}}</p>
+      </ion-label>
+    </ion-item>
+  </ion-list>
+  </ion-content>

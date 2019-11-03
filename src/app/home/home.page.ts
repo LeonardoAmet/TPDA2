@@ -1,4 +1,6 @@
 import { Component } from '@angular/core';
+import { Sensor } from '../model/sensor';
+import { SensorService } from '../services/sensor.service';
 
 @Component({
   selector: 'app-home',
@@ -7,6 +9,13 @@ import { Component } from '@angular/core';
 })
 export class HomePage {
 
-  constructor() {}
+  public listado:Sensor[];
+
+  constructor(public sensorService: SensorService) {
+    sensorService.getListado().then((listadoSensores)=>{
+      this.listado = listadoSensores;
+    })
+  }
+
 
 }

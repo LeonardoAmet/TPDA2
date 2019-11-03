@@ -1,0 +1,32 @@
+<!-- Back button with a default href -->
+<ion-header>
+    <ion-toolbar>
+        <ion-buttons slot="start">
+            <ion-back-button defaultHref="home"></ion-back-button>
+        </ion-buttons>
+        <ion-title>Detalle sensor</ion-title>
+    </ion-toolbar>
+</ion-header>
+
+<ion-list>
+
+    <ion-item>
+        <div *ngIf="sensor!=null" class="card" id="highcharts" style="width:100%; height:300px;"></div>
+    </ion-item>
+    <ion-item>
+        <!-- <ion-icon name="walk" slot="start"></ion-icon>
+        <ion-label>Abrir electrovalvula</ion-label> -->
+        <ion-button *ngIf="aperturaEv==null" (click)="abrirElectrovalvula()" expand="block" style="width:100%">Abrir
+            electrovalvula</ion-button>
+        <ion-button *ngIf="aperturaEv!=false && aperturaEv!=null" (click)="cerrarElectrovalvula()" expand="block"
+            style="width:100%">Cerrar electrovalvula</ion-button>
+        <ion-button *ngIf="aperturaEv!=true  && aperturaEv!=null" (click)="abrirElectrovalvula()" expand="block"
+            style="width:100%">Abrir electrovalvula</ion-button>
+    </ion-item>
+    <ion-item>
+        <ion-button fill="outline" expand="block" style="width:100%">Ver todas las mediciones</ion-button>
+    </ion-item>
+    <ion-item>
+        <ion-button fill="outline" expand="block" style="width:100%">Ver LOG riegos</ion-button>
+    </ion-item>
+</ion-list>
