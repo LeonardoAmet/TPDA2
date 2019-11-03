@@ -10,11 +10,6 @@
 <ion-content>
   <ion-grid>
     <ion-row>
-      <!-- <ion-col>
-        <div>
-          Medicion Id
-        </div>
-      </ion-col> -->
       <ion-col>
         <div>
           Fecha
@@ -22,23 +17,22 @@
       </ion-col>
       <ion-col>
         <div>
-          Valor
+          Apertura
         </div>
-      </ion-col>      
+      </ion-col>
     </ion-row>
 
-    <ion-row *ngFor="let medicion of mediciones">
-        <ion-col>
-            <div>
-              {{medicion?.fecha}}
-            </div>
-          </ion-col>
-          <ion-col>
-            <div>
-              {{medicion?.valor}}
-            </div>
-          </ion-col> 
-
+    <ion-row *ngFor="let log of logs">
+      <ion-col>
+        <div>
+          {{log?.fecha}}
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          {{log?.apertura}}
+        </div>
+      </ion-col>
     </ion-row>
   </ion-grid>
 </ion-content>

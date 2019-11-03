@@ -13,12 +13,13 @@ import { Sensor } from '../model/sensor';
 export class TablaMedicionesPage implements OnInit {
 
   // private sensor:Sensor = new Sensor();
-  @Input() sensor: Sensor;
+  //@Input() sensor: Sensor;
+  private sensorId;
   private mediciones:Medicion[];// = new Array<Medicion>();
 
   constructor(private router: ActivatedRoute, private medicionService:MedicionService) { 
-    let idSensor = this.router.snapshot.paramMap.get('id'); 
-    medicionService.getTodas(idSensor).then((resultado :Medicion[])=>{
+    this.sensorId = this.router.snapshot.paramMap.get('id'); 
+    medicionService.getTodas(this.sensorId).then((resultado :Medicion[])=>{
       this.mediciones = resultado
     });
 

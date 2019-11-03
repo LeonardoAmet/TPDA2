@@ -24,4 +24,11 @@ export class ElectrovalvulaService {
     var log = {"apertura":apertura, "fecha": fechaActual, "electrovalvulaId": id}
     return this.http.post(urlApi + '/agregar', log).toPromise().then(()=>{console.log("promesa del post cumplida")})
   }
+
+  public getTodosLogs(id):  Promise<LogRiego[]> {
+    return this.http.get(urlApi + '/leertodos/' + id).toPromise().then((resultado:LogRiego[]) =>{
+      console.log('log: ' + resultado[0] + ' desde getLogRiego')
+      return resultado;
+    })
+  }
 }

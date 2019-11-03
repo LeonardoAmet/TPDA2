@@ -1,4 +1,3 @@
-<!-- <app-tabla-mediciones [sensor]="sensor"></app-tabla-mediciones> -->
 <!-- Back button with a default href -->
 <ion-header>
     <ion-toolbar>
@@ -25,12 +24,12 @@
             style="width:100%">Abrir electrovalvula</ion-button>
     </ion-item>
     <ion-item [routerLink]="'/tabla-mediciones/'+ sensor?.dispositivoId">
-    <!-- <ion-item> -->
-        <ion-button  fill="outline" expand="block" style="width:100%">
+        <!-- <ion-item> -->
+        <ion-button fill="outline" expand="block" style="width:100%">
             Ver todas las mediciones
         </ion-button>
     </ion-item>
-    <ion-item>
+    <ion-item [routerLink]="'/log-riegos/'+ sensor?.dispositivoId">
         <ion-button fill="outline" expand="block" style="width:100%">Ver LOG riegos</ion-button>
     </ion-item>
 </ion-list>
