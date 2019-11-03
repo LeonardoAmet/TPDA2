@@ -1,9 +1,44 @@
 <ion-header>
   <ion-toolbar>
-    <ion-title>tablaMediciones</ion-title>
+    <ion-buttons slot="start">
+      <ion-back-button defaultHref="detalle-sensor/' + sensor?.dispositivoId"></ion-back-button>
+    </ion-buttons>
+    <ion-title>Sensor n° {{sensor?.dispositivoId}}</ion-title>
   </ion-toolbar>
 </ion-header>
 
 <ion-content>
+  <ion-grid>
+    <ion-row>
+      <!-- <ion-col>
+        <div>
+          Medicion Id
+        </div>
+      </ion-col> -->
+      <ion-col>
+        <div>
+          Fecha
+        </div>
+      </ion-col>
+      <ion-col>
+        <div>
+          Valor
+        </div>
+      </ion-col>      
+    </ion-row>
 
+    <ion-row *ngFor="let medicion of mediciones">
+        <ion-col>
+            <div>
+              {{medicion?.fecha}}
+            </div>
+          </ion-col>
+          <ion-col>
+            <div>
+              {{medicion?.valor}}
+            </div>
+          </ion-col> 
+
+    </ion-row>
+  </ion-grid>
 </ion-content>

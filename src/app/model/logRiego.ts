@@ -1,5 +1,5 @@
 export class LogRiego{
-    apertura: Boolean
+    apertura: Number
     fecha: Date
     electrovalvulaId: Number
 }

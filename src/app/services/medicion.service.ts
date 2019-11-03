@@ -28,6 +28,12 @@ export class MedicionService {
     var medicion = new nuevaMedicion()
     medicion = {"fecha": fechaActual, "valor":valor, "dispositivoId":id}
     return this.http.post(urlApi + '/agregar', medicion).toPromise().then(()=>{console.log("promesa del post cumplida")})
-  } 
+  }
+  
+  getTodas(id):Promise<Medicion[]>{
+    return this.http.get(urlApi + '/leertodas/' + id).toPromise().then((resultado:Medicion[])=>{
+      return resultado
+    })
+  }
 
 }

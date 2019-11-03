@@ -20,15 +20,38 @@ require('highcharts/modules/solid-gauge')(Highcharts);
 })
 export class DetalleSensorPage implements OnInit {
 
+  private idSensor:string
   private valorObtenido: number = 0;
-  public myChart;
+  public  myChart;
   private chartOptions;
-  private sensor: Sensor;
-  private medicion: Medicion;
-  private log: LogRiego;
-  private aperturaEv: Boolean;
+  private sensor: Sensor = new Sensor();
+  private medicion: Medicion = new Medicion();
+  private log: LogRiego = new LogRiego();
+  private aperturaEv: Number = 0;
 
   constructor(private router: ActivatedRoute, private sensorService: SensorService, private medicionService: MedicionService, private electrovalvulaService: ElectrovalvulaService) {
+    // 1. Traigo sensor
+    this.idSensor = this.router.snapshot.paramMap.get('id');
+    this.sensorService.getSensor(this.idSensor).then((resultado: Sensor) => {
+      console.log(resultado)
+      this.sensor = resultado
+    });
+
+    // 2. Traigo ultima medicion
+    this.medicionService.getUltimaMedicion(this.idSensor).then((resultado: Medicion) => {
+      console.log(resultado)
+      this.medicion = resultado
+      this.valorObtenido = parseInt(this.medicion.valor)
+    })
+
+    // 3. Traigo estado de la electrovalvula (en el log)
+    //let idElectrovalvula = this.router.snapshot.paramMap.get('id');
+    let idElectrovalvula = this.idSensor;
+    this.electrovalvulaService.getLogRiego(idElectrovalvula).then((resultado: LogRiego) => {
+      this.log = resultado;
+      this.aperturaEv = this.log.apertura;
+      console.log(this.aperturaEv)
+    })
     // setTimeout(() => {
 
     // }, 2000);
@@ -73,10 +96,14 @@ export class DetalleSensorPage implements OnInit {
 
   ionViewDidEnter() {
     // actualizo chart
-    var intervalId = setInterval(() => {
-      this.update()
-    }, 2000);
-    this.generarChart();
+    
+    //
+    // setTimeout(() => {
+      var intervalId = setInterval(() => {
+        this.update()
+      }, 2000);
+      this.generarChart();
+    // }, 1000);
   }
 
   generarChart() {
@@ -153,7 +180,7 @@ export class DetalleSensorPage implements OnInit {
 
   cerrarElectrovalvula() {
     // cierro valvula
-    this.aperturaEv = false
+    this.aperturaEv = 0
     // loggeo cierre
     this.electrovalvulaService.guardarLogRiego(this.sensor.electrovalvulaId, this.aperturaEv)
     // guardo medicion
@@ -162,7 +189,7 @@ export class DetalleSensorPage implements OnInit {
 
   abrirElectrovalvula() {
     // abro electrovalvula
-    this.aperturaEv = true
+    this.aperturaEv = 1
     // loggeo apertura
     this.electrovalvulaService.guardarLogRiego(this.sensor.electrovalvulaId, this.aperturaEv)
 
@@ -171,7 +198,8 @@ export class DetalleSensorPage implements OnInit {
   update() {
 
     console.log("Cambio el valor del sensor");
-    if (this.aperturaEv === true) {
+    console.log("Apertura Ev ", this.aperturaEv);
+    if (this.aperturaEv === 1) {
       this.valorObtenido -= 2;
       // Si se llega a 100 saturo el valor:
       if (this.valorObtenido <= 0) {
@@ -200,4 +228,5 @@ export class DetalleSensorPage implements OnInit {
     });
   }
 
+  
 }
